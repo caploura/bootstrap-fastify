@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-fastify",
-  "version": "1.1.13",
+  "version": "1.1.15",
   "description": "create a barebones fastify app using fastify-cli, eslint and prettier",
   "main": "src/index.js",
   "scripts": {
@@ -10,12 +10,6 @@
   "bin": {
     "bootstrap-fastify": "src/index.js"
   },
-  "files": [
-    "src/**/*",
-    "static/**/*",
-    "static/.gitignore",
-    "pnpm-lock.yaml"
-  ],
   "author": "Carlos Loura",
   "license": "ISC"
 }
