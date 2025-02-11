@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "bootstrap-fastify": "./index.js"
+    "bootstrap-fastify": "index.js"
   },
   "author": "Carlos Loura",
   "license": "ISC"
