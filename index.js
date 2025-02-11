@@ -1,10 +1,13 @@
+#!/usr/bin/env node
+
 const fs = require("fs");
 const path = require("path");
+const readline = require('readline');
 const { setupDirectory, processFile } = require("./helpers");
 
 const ignored = ["node_modules"];
 
-function readFilesRecursively(name) {
+function processNewApp(name) {
   const staticFiles = [];
 
   setupDirectory(name);
@@ -31,4 +34,13 @@ function readFilesRecursively(name) {
   }
 }
 
-readFilesRecursively("just-another-app");
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+rl.question('Enter application name: ', (userInput) => {
+  console.log(`Creating fastify application "${userInput}"`);
+  processNewApp(userInput);
+  rl.close();
+});

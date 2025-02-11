@@ -21,8 +21,6 @@ for f in $files
 do
   if [[ $f == backend/* ]]
   then
-    file=$(echo "$f" | sed 's|^backend/||')
-    echo $file
-    npm --prefix backend run lint-staged -- $file
+    npm run lint-staged -- $f
   fi
 done
