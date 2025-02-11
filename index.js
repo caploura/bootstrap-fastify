@@ -1,45 +1,8 @@
 const fs = require("fs");
 const path = require("path");
-const { processPackageJson, setupDirectory, processFile } = require("./helpers");
+const { setupDirectory, processFile } = require("./helpers");
 
-function createApplication(name) {
-  const projectPath = path.join(process.cwd(), name);
-
-  if (fs.existsSync(projectPath)) {
-    fs.rmSync(projectPath, { recursive: true });
-  }
-  fs.mkdirSync(projectPath);
-
-  const staticDir = path.join(__dirname, "static");
-  const files = fs.readdirSync(staticDir);
-
-  files.forEach((file) => {
-    const filePath = path.join(staticDir, file);
-    const stats = fs.statSync(filePath);
-
-    if (stats.isFile() && file !== "package.json") {
-      //   console.log(`processing file ${file}`);
-
-      fs.copyFileSync(filePath, path.join(projectPath, file));
-    } else if (stats.isFile() && file === "package.json") {
-      const packageJson = processPackageJson(filePath, name);
-
-      fs.writeFileSync(
-        path.join(projectPath, file),
-        JSON.stringify(packageJson, null, 2)
-      );
-    } else if (stats.isDirectory()) {
-      console.log(`processing directory ${file}`);
-
-      const directory = path.join(projectPath, file);
-      fs.mkdirSync(directory);
-
-      const subFiles = fs.readdirSync(filePath);
-
-      subFiles.forEach((subFile) => console.log(subFile));
-    }
-  });
-}
+const ignore = ['node_modules'];
 
 function readFilesRecursively(name) {
   const staticFiles = [];
@@ -54,7 +17,9 @@ function readFilesRecursively(name) {
       const stats = fs.statSync(filePath);
 
       if (stats.isDirectory()) {
-        readStaticDir(filePath);
+        if (!ignore.includes(file)) {
+          readStaticDir(filePath);
+        }
       } else if (stats.isFile()) {
         staticFiles.push(filePath);
       }
