@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# exit when any command fails
+set -e
+
+# check that the branch name includes Jira ticket number and is on the correct format
+# jira_ticket_format='\/(EN|ENM)-[0-9]+\/|other'
+# branch_name=$(git symbolic-ref --short HEAD)
+
+# if [[ ! $branch_name =~ $jira_ticket_format ]]; then
+#     echo -e "Branch is missing a Jira ticket or has incorrect formatting. Example: feat/EN-2021/my-feature-name"
+#     echo -e "For edge cases without a Jira ticket, use the keyword 'other' in your branch."
+#     exit 1
+# fi
+
+echo "Running pre-commit hook"
+
+files=$(git diff --cached --name-only)
+
+for f in $files
+do
+  if [[ $f == backend/* ]]
+  then
+    file=$(echo "$f" | sed 's|^backend/||')
+    echo $file
+    npm --prefix backend run lint-staged -- $file
+  fi
+done
