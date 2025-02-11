@@ -18,12 +18,15 @@ function setupDirectory(name) {
 }
 
 function processFile(file, name) {
-  const p = file.split('static/')[1];
-  const newFile = path.join(process.cwd(), name, p);
+  const p = file.split("static/")[1];
 
-  console.log('processing file', newFile);
-  
-  if (!p.includes('package.json')) {
+  let newFile = path.join(process.cwd(), name, p);
+
+  if (p.includes(".gitignore.example")) {
+    newFile = path.join(process.cwd(), name, ".gitignore");
+    fs.mkdirSync(path.dirname(newFile), { recursive: true });
+    fs.copyFileSync(file, newFile);
+  } else if (!p.includes("package.json")) {
     fs.mkdirSync(path.dirname(newFile), { recursive: true });
     fs.copyFileSync(file, newFile);
   } else {

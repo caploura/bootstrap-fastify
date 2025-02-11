@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-fastify",
-  "version": "1.1.15",
+  "version": "1.1.16",
   "description": "create a barebones fastify app using fastify-cli, eslint and prettier",
   "main": "src/index.js",
   "scripts": {
