@@ -27,7 +27,7 @@ function processNewApp(name) {
     });
   }
 
-  readStaticDir(path.join(__dirname, "static"));
+  readStaticDir(path.join(__dirname, "..", "static"));
 
   for (const file of staticFiles) {
     processFile(file, name);
