@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const { setupDirectory, processFile } = require("./helpers");
 
-const ignore = ['node_modules'];
+const ignored = ["node_modules"];
 
 function readFilesRecursively(name) {
   const staticFiles = [];
@@ -16,10 +16,8 @@ function readFilesRecursively(name) {
       const filePath = path.join(currentPath, file);
       const stats = fs.statSync(filePath);
 
-      if (stats.isDirectory()) {
-        if (!ignore.includes(file)) {
-          readStaticDir(filePath);
-        }
+      if (stats.isDirectory() && !ignored.includes(file)) {
+        readStaticDir(filePath);
       } else if (stats.isFile()) {
         staticFiles.push(filePath);
       }
@@ -29,10 +27,8 @@ function readFilesRecursively(name) {
   readStaticDir("static");
 
   for (const file of staticFiles) {
-    // console.log(file);
     processFile(file, name);
   }
 }
 
-// createApplication("just-another-app");
 readFilesRecursively("just-another-app");
