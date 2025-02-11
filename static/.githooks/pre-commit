@@ -15,12 +15,4 @@ set -e
 
 echo "Running pre-commit hook"
 
-files=$(git diff --cached --name-only)
-
-for f in $files
-do
-  if [[ $f == backend/* ]]
-  then
-    npm run lint-staged -- $f
-  fi
-done
+npm run lint
