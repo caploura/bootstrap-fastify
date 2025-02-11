@@ -1,0 +1,15 @@
+{
+  "name": "bootstrap-fastify",
+  "version": "1.0.0",
+  "description": "create a barebones fastify app using fastify-cli, eslint and prettier",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "bootstrap-fastify": "./index.js"
+  },
+  "author": "Carlos Loura",
+  "license": "ISC"
+}
